@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Portfolio | Luau • Python • JS • Rust</title>
+    <!-- Devicon for language icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --terminal-green: #00ff41;
+            --dim-green: #0a2f1a;
+            --text: #e0e0e0;
+            --muted: #888;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--terminal-green);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            font-family: var(--font-mono);
+        }
+
+        nav a {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--terminal-green);
+        }
+
+        /* Sections */
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            min-height: 60vh;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 8rem;
+        }
+
+        .typing-container {
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            color: var(--terminal-green);
+            border-right: 2px solid var(--terminal-green);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink-caret 0.75s step-end infinite;
+            max-width: fit-content;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.6);
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--terminal-green); }
+        }
+
+        .hero p.subtitle {
+            font-family: var(--font-mono);
+            color: var(--muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin-top: 1rem;
+        }
+
+        .glitch-text {
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            color: var(--text);
+            text-shadow: 0 0 8px var(--terminal-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            width: 140px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--terminal-green), #0f0, var(--terminal-green), #0f0);
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--terminal-green);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.3);
+        }
+
+        .skill-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            color: var(--terminal-green);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .skill-card span {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 2rem;
+            flex: 1 1 280px;
+            max-width: 320px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            border-color: var(--terminal-green);
+            box-shadow: 0 0 20px rgba(0,255,65,0.2);
+            transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            font-family: var(--font-mono);
+            color: var(--terminal-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card .lang-tag {
+            display: inline-block;
+            background: var(--dim-green);
+            color: var(--terminal-green);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 0.2em 0.6em;
+            border-radius: 4px;
+            margin-right: 0.3rem;
+        }
+
+        .contact .terminal-box {
+            background: #0d1117;
+            border: 1px solid var(--terminal-green);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            color: var(--terminal-green);
+            max-width: 500px;
+            margin: 2rem auto;
+            box-shadow: 0 0 20px rgba(0,255,65,0.1);
+        }
+
+        .terminal-box .prompt {
+            color: #00ff41;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-family: var(--font-mono);
+            color: var(--muted);
+            border-top: 1px solid #222;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 600px) {
+            .typing-container {
+                font-size: 1.8rem;
+            }
+            nav {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#home">~/home</a>
+        <a href="#skills">./skills</a>
+        <a href="#projects">./projects</a>
+        <a href="#contact">./contact</a>
+    </nav>
+
+    <!-- Hero / Home -->
+    <section id="home" class="section hero">
+        <div class="typing-container" id="typing"></div>
+        <p class="subtitle">
+            I'm a script that breathes logic into games, tools, and systems. Whether it's Roblox Luau, Python automation, JavaScript on the web, or systems in Rust – I speak the language of efficiency.
+        </p>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+        <h2 class="glitch-text">$ skills --list</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="devicon-lua-plain"></i>
+                <span>Luau</span>
+            </div>
+            <div class="skill-card">
+                <i class="devicon-python-plain"></i>
+                <span>Python</span>
+            </div>
+            <div class="skill-card">
+                <i class="devicon-javascript-plain"></i>
+                <span>JavaScript</span>
+            </div>
+            <div class="skill-card">
+                <i class="devicon-rust-plain"></i>
+                <span>Rust</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+        <h2 class="glitch-text">$ ls ~/projects/</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>🔧 Game Backend</h3>
+                <p>A Roblox game server controller written in Luau with advanced data persistence and matchmaking.</p>
+                <div><span class="lang-tag">Luau</span><span class="lang-tag">Python</span></div>
+            </div>
+            <div class="project-card">
+                <h3>🐍 CLI Toolkit</h3>
+                <p>Cross-platform command‑line utilities for automating workflows, built with Python and Rust.</p>
+                <div><span class="lang-tag">Python</span><span class="lang-tag">Rust</span></div>
+            </div>
+            <div class="project-card">
+                <h3>🌐 Web Dashboard</h3>
+                <p>Real‑time analytics dashboard with a vanilla JS frontend and a Rust backend.</p>
+                <div><span class="lang-tag">JavaScript</span><span class="lang-tag">Rust</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+        <h2 class="glitch-text">$ cat contact.txt</h2>
+        <div class="terminal-box">
+            <p><span class="prompt">user@scriptfolio:~$</span> echo $EMAIL</p>
+            <p style="margin-left: 1.5rem;">script@example.com</p>
+            <p><span class="prompt">user@scriptfolio:~$</span> echo $DISCORD</p>
+            <p style="margin-left: 1.5rem;">script#0000</p>
+            <p><span class="prompt">user@scriptfolio:~$</span> <span class="cursor">█</span></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Built with &lt;html&gt; and a lot of caffeine • © 2026 Scriptfolio</p>
+    </footer>
+
+    <script>
+        // Typing animation
+        const text = "> I am a script. I craft code in Luau, Python, JavaScript, and Rust.";
+        let index = 0;
+        const typingEl = document.getElementById('typing');
+
+        function type() {
+            if (index < text.length) {
+                typingEl.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 50); // speed
+            } else {
+                // Keep blinking cursor after typing
+                typingEl.style.animation = 'blink-caret 0.75s step-end infinite';
+            }
+        }
+        // Start animation on load
+        window.addEventListener('load', () => {
+            typingEl.textContent = ''; // clear just in case
+            type();
+        });
+    </script>
+</body>
+                                                                 </html>
